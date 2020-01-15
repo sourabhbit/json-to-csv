@@ -318,12 +318,40 @@
 
     // Support (now-deprecated) anonymous gist-backed permalinks.
     loadPermalink();
-  });
+});
+
+
+
+
+    $(document).ready(function(){
+      function getjson(){
+      var result;
+      var geturl=document.getElementById("userUrl").value;
+      function printjson(x){
+      document.getElementById("inputjson").value=x;
+    }
+      
+      fetch(geturl)
+      .then(res => res.json())
+      .then((out) => {
+        printjson(out);
+      console.log('Output: ', out);
+}).catch(err => console.error(err));
+    
+    }
+    $("#Save").click(getjson);
+    
+
+});
 </script>
 
 </head>
 <body>
-
+<h1>Enter URL for JSON:</h1>
+<form name="myForm">
+  <input type="text" id="userUrl">
+  <input type="button" id="Save" value="test">
+</form>
 <h1>Convert JSON to CSV</h1>
 
 <section class="json">
@@ -336,7 +364,7 @@
   </p>
 
   <div class="areas">
-    <textarea class="editing"></textarea>
+    <textarea class="editing" id="inputjson"></textarea>
     <pre class="rendered"><code></code></pre>
     <div class="drop">DROP JSON HERE</div>
   </div>
